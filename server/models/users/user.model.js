@@ -2,6 +2,23 @@ import mongoose, {Schema} from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
+// Imports necessary modules: mongoose for MongoDB database operations, Schema from mongoose for defining the schema, 
+// jwt for JSON Web Token operations, and bcryptjs for password hashing.
+
+// Defines the UserSchema using the Schema object from mongoose. The schema includes fields for username, email, fullName,
+//  avatar, coverImage, watchHistory, password, and refreshToken. Some fields have specific requirements such as being required,
+
+//   unique, lowercase, or having a reference to the "Video" model.
+// Defines a pre-save middleware function that hashes the user's password before saving it to the database using bcryptjs.
+
+// Defines two methods on the schema:
+// isPasswordCorrect: A method that compares a provided password with the user's hashed password using bcryptjs.compare.
+// generateToken: A method that generates a JSON Web Token (JWT) containing the user's _id, email, fullName, and userName using jsonwebtoken.sign.
+
+// generateRefreshToken: A method that generates a refresh token containing the user's _id using jsonwebtoken.sign.
+// Exports the User model, which is created by calling mongoose.model with the name "User" and the UserSchema.
+
+
 const UserSchema = new Schema({
     username: {
         type: String,
@@ -68,7 +85,7 @@ UserSchema.methods.generateToken = async function () {
         userName: this.userName,
          }, 
          process.env.ACCESS_TOKEN_SECREAT, {
-        expiresIn: process.ACCESS_TOKEN_EXPIRY
+        expiresIn: process.env.ACCESS_TOKEN_EXPIRY
     });
 }
 
@@ -77,7 +94,7 @@ UserSchema.methods.generateRefreshToken = async function () {
          _id: this._id ,
          }, 
          process.env.REFRESH_TOKEN_SECREAT, {
-        expiresIn: process.REFRESH_TOKEN_EXPIRY
+        expiresIn: process.env.REFRESH_TOKEN_EXPIRY
     });
 }
 
