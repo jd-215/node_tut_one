@@ -165,8 +165,10 @@ const logOutUser = asyncHandler(async (req, res) => {
 const refreshAccessToken = asyncHandler(async (req, res) => {
       try {
             // get refresh token from cookies
-            const incomingRefreshToken = req.cookies?.refreshToken || req.body?.refreshToken;
-            if (incomingRefreshToken) {
+            const incomingRefreshToken = req.cookies?.refreshToken  || req.headers("Authorization")?.replace("Bearer ", "");
+            
+            // check if refresh token exists
+            if (!incomingRefreshToken) {
                   throw new ApiError(401, "Unauthorized request");
             }
             // verify refresh token
@@ -175,7 +177,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 
             // check if user exists
             if (!user) {
-                  throw new ApiError(401, "Unauthorized request");
+                  throw new ApiError(401, "Unauthorized request user not found");
             }
             // check if refresh token is valid
             if (incomingRefreshToken !== user?.refreshToken) {
