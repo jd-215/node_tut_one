@@ -1,6 +1,6 @@
 // add js extension while importing to avoid error
 import { Router } from "express";
-import { logOutUser, loginUser, registerUser } from "../controllers/user.cotroller.js";
+import { logOutUser, loginUser, registerUser, refreshAccessToken } from "../controllers/user.cotroller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyToken } from "../middlewares/auth.middleware.js";
 
@@ -12,18 +12,19 @@ const router = Router();
 // The registerUser function is passed as the final middleware function to handle the HTTP POST request.
 
 router.route("/register").post(
-    upload.fields([
-        { name: "avatar", maxCount: 1 },
-        { name: "coverImage", maxCount: 1 },
-    ]),
-    registerUser
+      upload.fields([
+            { name: "avatar", maxCount: 1 },
+            { name: "coverImage", maxCount: 1 },
+      ]),
+      registerUser
 ); // the response is passing to the controller
 
 router.route("/login").post(loginUser);
 
+//secured routes or protected routes
 
-//secured routes
+router.route("/logout").post(verifyToken, logOutUser); // the response is passing by middleware and then to the controller
 
-router.route("/logout").post(verifyToken, logOutUser);
+router.route("/refresh-token").post(refreshAccessToken); // the routes are refreshing the access token
 
 export default router;
