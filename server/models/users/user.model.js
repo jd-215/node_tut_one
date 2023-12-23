@@ -67,10 +67,10 @@ const UserSchema = new Schema(
 
 // Define a pre-save middleware function that hashes the user's password before saving it to the database using bcryptjs.hash.
 UserSchema.pre("save", async function (next) {
-      if (this.isModified("password")) {
-            const salt = await bcrypt.genSalt(10);
-            this.password = await bcrypt.hash(this.password, salt);
-      }
+      if (!this.isModified("password")) return next();
+
+      const salt = await bcrypt.genSalt(10);
+      this.password = await bcrypt.hash(this.password, salt);
 
       next();
 });
