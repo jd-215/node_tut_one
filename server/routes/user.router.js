@@ -1,6 +1,6 @@
 // add js extension while importing to avoid error
 import { Router } from "express";
-import { logOutUser, loginUser, registerUser, refreshAccessToken } from "../controllers/user.cotroller.js";
+import { logOutUser, loginUser, registerUser, refreshAccessToken , changeCurrentPassword , getCurrentUser, updateUser, updateCoverImage, updateAvatar} from "../controllers/user.cotroller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyToken } from "../middlewares/auth.middleware.js";
 
@@ -26,5 +26,16 @@ router.route("/login").post(loginUser);
 router.route("/logout").post(verifyToken, logOutUser); // the response is passing by middleware and then to the controller
 
 router.route("/refresh-token").post(refreshAccessToken); // the routes are refreshing the access token
+
+router.route("/change-password").post(verifyToken, changeCurrentPassword); 
+
+router.route("/current-user").get(verifyToken, getCurrentUser); 
+
+router.route("/update-user").post(verifyToken, upload.single("avatar"), updateUser); 
+
+router.route("/update-cover-image").post(verifyToken, upload.single("coverImage"), updateCoverImage); 
+
+router.route("/update-avatar").post(verifyToken, upload.single("avatar"), updateAvatar); 
+
 
 export default router;
