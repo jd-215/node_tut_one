@@ -4,7 +4,7 @@
     "tabWidth": 6,
     "trailingComma": "es5",
     "semi": true,
-    "printWidth": 120,
+    "printWidth": 90,
     "jsxBracketSameLine": true,
     "arrowParens": "always",
     "endOfLine": "auto"
