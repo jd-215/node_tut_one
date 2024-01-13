@@ -15,6 +15,7 @@ import {
 } from "../controllers/user.cotroller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyToken } from "../middlewares/auth.middleware.js";
+import { verify_DB_Connection } from "../middlewares/db.middleware.js";
 
 const router = Router();
 
@@ -23,8 +24,7 @@ const router = Router();
 //  It expects an array of objects specifying the field name and the maximum number of files allowed.
 // The registerUser function is passed as the final middleware function to handle the HTTP POST request.
 
-router.route("/register").post(
-      upload.fields([
+router.route("/register").post(      upload.fields([
             { name: "avatar", maxCount: 1 },
             { name: "coverImage", maxCount: 1 },
       ]),
@@ -37,24 +37,30 @@ router.route("/login").post(loginUser);
 
 router.route("/logout").post(verifyToken, logOutUser); // the response is passing by middleware and then to the controller
 
-router.route("/refresh-token").post(refreshAccessToken); // the routes are refreshing the access token
+router.route("/refresh-token").post( refreshAccessToken); // the routes are refreshing the access token
 
-router.route("/change-password").post(verifyToken, changeCurrentPassword);
+router.route("/change-password").post( verifyToken, changeCurrentPassword);
 
-router.route("/current-user").get(verifyToken, getCurrentUser);
+router.route("/current-user").get(  verifyToken, getCurrentUser);
 
 router.route("/update-user").post(verifyToken, upload.single("avatar"), updateUser);
 
 router.route("/update-cover-image").post(
-      verifyToken,
+            verifyToken,
       upload.single("coverImage"),
       updateCoverImage
 );
 
-router.route("/update-avatar").post(verifyToken, upload.single("avatar"), updateAvatar);
+router.route("/update-avatar").post( verifyToken, upload.single("avatar"), updateAvatar);
 
-router.route("/c/:username").get(verifyToken, getUserChannelProfile);
+router.route("/c/:username").get( verifyToken, getUserChannelProfile);
 
-router.route("/watch-history").get(verifyToken, getWatchHistory);
+router.route("/watch-history").get( verifyToken, getWatchHistory);
+
+// exporting the router
+
+// router.route("/hello").get( async (req, res) => {res.send("hello")});
+
+ // exporting the router
 
 export default router;

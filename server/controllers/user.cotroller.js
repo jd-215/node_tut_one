@@ -6,6 +6,7 @@ import { ApiResponse } from "../utils/apiResponse.js";
 
 import jwt from "jsonwebtoken";
 
+
 // This function generates an access and refresh token for a user
 const generateAccessAndRefreshToken = async (user) => {
       // generate access and refresh token
