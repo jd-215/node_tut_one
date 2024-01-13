@@ -9,7 +9,8 @@ const connectDB = async () => {
     try{
         const connectionInstance = await mongoose.connect(`${process.env.MONGO_URL}/${DB_NAME}?retryWrites=true&w=majority`);
         // console.log(connectionInstance);
-         console.log("Connected to MongoDB on ", connectionInstance.connection.host, connectionInstance.connection.name);
+        //  console.log("Connected to MongoDB on ", connectionInstance.connection.host, connectionInstance.connection.name);
+         console.log("Connected to DB");
     }
     catch(err){
         console.log(err);
