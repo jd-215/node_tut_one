@@ -63,9 +63,14 @@ dotenv.config({ path: "./.env" })
 
 app.listen(process.env.PORT || 8000, () => {
             console.log(`App listening on port ${process.env.PORT}`);
-            console.log(" *#* Master app is up and running");
+            console.log(" ######################################## ");
+            console.log(" ******* Master app is up and running ******* ");
+            console.log(" ****                                ****** ");
+            console.log("----              J(*O*)J            ---------");
+            console.log(" ****                                ****** ");
+            console.log(" ######################################## ");
             connectDB().then(() => {
-                console.log("Connected to DB");
+                console.log("DB connected successfully");
             })
             .catch((err) => {
                 console.log(err);
@@ -73,6 +78,5 @@ app.listen(process.env.PORT || 8000, () => {
             })
             })
         
-
 
 export default app
