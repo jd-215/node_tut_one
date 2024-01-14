@@ -2,10 +2,11 @@
 
 import express, { Router } from "express";
 import serverless from "serverless-http";
-import masterApp from "../../server";
-const api = express();
+// import masterApp from "../../server";
+import app from "../../server";
 
 const router = Router();
+dotenv.config({ path: "./.env" });
 // router.get("/hello", (req, res) => res.send("Hello World!"));
 
 api.use("/api/", router);

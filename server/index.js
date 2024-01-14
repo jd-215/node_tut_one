@@ -33,7 +33,7 @@ import app from "./app.js"
 import connectDB from "./db/dbFile.js"
 
 
-// dotenv.config({ path: "./.env" })
+dotenv.config({ path: "./.env" })
 
 // connectDB()
 //     .then(() => {
@@ -46,20 +46,33 @@ import connectDB from "./db/dbFile.js"
 //         process.exit(1);
 //     })
 
-const masterApp = async () => {
-    dotenv.config({ path: "./.env" })
-    connectDB()
-    .then(() => {
-    app.listen(process.env.PORT || 8000, () => {
-        console.log(`App listening on port ${process.env.PORT}`);
-        console.log(" *#* Master app is up and running");
-        })
-    })
-    .catch((err) => {
-        console.log(err);
-        process.exit(1);
-    })
-}
+// const masterApp = async () => {
+//     dotenv.config({ path: "./.env" })
+//     connectDB()
+//     .then(() => {
+//     app.listen(process.env.PORT || 8000, () => {
+//         console.log(`App listening on port ${process.env.PORT}`);
+//         console.log(" *#* Master app is up and running");
+//         })
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//         process.exit(1);
+//     })
+// }
 
-masterApp()
-export default masterApp
+app.listen(process.env.PORT || 8000, () => {
+            console.log(`App listening on port ${process.env.PORT}`);
+            console.log(" *#* Master app is up and running");
+            connectDB().then(() => {
+                console.log("Connected to DB");
+            })
+            .catch((err) => {
+                console.log(err);
+                process.exit(1);
+            })
+            })
+        
+
+
+export default app
