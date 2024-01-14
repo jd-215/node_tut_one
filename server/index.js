@@ -33,17 +33,33 @@ import app from "./app.js"
 import connectDB from "./db/dbFile.js"
 
 
-dotenv.config({ path: "./.env" })
+// dotenv.config({ path: "./.env" })
 
-connectDB()
+// connectDB()
+//     .then(() => {
+//     app.listen(process.env.PORT || 8000, () => {
+//         console.log(`example app listening on port ${process.env.PORT}`);
+//         })
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//         process.exit(1);
+//     })
+
+const masterApp = async () => {
+    dotenv.config({ path: "./.env" })
+    connectDB()
     .then(() => {
     app.listen(process.env.PORT || 8000, () => {
-        console.log(`Server listening on port ${process.env.PORT}`);
-        // console.log(`App started`);
+        console.log(`App listening on port ${process.env.PORT}`);
+        console.log(" *#* Master app is up and running");
         })
     })
     .catch((err) => {
         console.log(err);
         process.exit(1);
     })
+}
 
+masterApp()
+export default masterApp

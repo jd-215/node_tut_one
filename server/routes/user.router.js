@@ -15,7 +15,7 @@ import {
 } from "../controllers/user.cotroller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyToken } from "../middlewares/auth.middleware.js";
-import { verify_DB_Connection } from "../middlewares/db.middleware.js";
+// import { verify_DB_Connection } from "../middlewares/db.middleware.js";
 
 const router = Router();
 
@@ -24,7 +24,8 @@ const router = Router();
 //  It expects an array of objects specifying the field name and the maximum number of files allowed.
 // The registerUser function is passed as the final middleware function to handle the HTTP POST request.
 
-router.route("/register").post(      upload.fields([
+router.route("/register").post(      
+            upload.fields([
             { name: "avatar", maxCount: 1 },
             { name: "coverImage", maxCount: 1 },
       ]),
@@ -59,8 +60,58 @@ router.route("/watch-history").get( verifyToken, getWatchHistory);
 
 // exporting the router
 
-// router.route("/hello").get( async (req, res) => {res.send("hello")});
+router.route("/hello").get( async (req, res) => {
+      res.send("Hello World!");
+});
 
- // exporting the router
+
 
 export default router;
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+// router.route("/register").post(      
+//             upload.fields([
+//             { name: "avatar", maxCount: 1 },
+//             { name: "coverImage", maxCount: 1 },
+//       ]),
+//       registerUser
+// ); // the response is passing to the controller
+
+// router.route("/login").post(loginUser);
+
+// //secured routes or protected routes
+
+// router.route("/logout").post(verify_DB_Connection, verifyToken, logOutUser); // the response is passing by middleware and then to the controller
+
+// router.route("/refresh-token").post(verify_DB_Connection, refreshAccessToken); // the routes are refreshing the access token
+
+// router.route("/change-password").post( verify_DB_Connection, verifyToken, changeCurrentPassword);
+
+// router.route("/current-user").get(  verify_DB_Connection, verifyToken, getCurrentUser);
+
+// router.route("/update-user").post(verify_DB_Connection, verifyToken, upload.single("avatar"), updateUser);
+
+// router.route("/update-cover-image").post(
+//             verify_DB_Connection, verifyToken,
+//       upload.single("coverImage"),
+//       updateCoverImage
+// );
+
+// router.route("/update-avatar").post( verify_DB_Connection, verifyToken, upload.single("avatar"), updateAvatar);
+
+// router.route("/c/:username").get( verify_DB_Connection, verifyToken, getUserChannelProfile);
+
+// router.route("/watch-history").get( verify_DB_Connection, verifyToken, getWatchHistory);
+
+// // exporting the router
+
+// router.route("/hello").get(verify_DB_Connection, async (req, res) => {
+//       res.send("Hello World!");
+// });
+
+ 
+
+// export default router;
