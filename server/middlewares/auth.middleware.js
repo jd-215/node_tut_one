@@ -15,7 +15,7 @@ import jwt from "jsonwebtoken";
 export const verifyToken = asyncHandler(async (req, _, next) => {
       try {
             // get access token
-            const accessToken = req.cookies?.accessToken || req.headers("Authorization")?.replace("Bearer ", "");
+            const accessToken = req.cookies?.accessToken || req.headers?.authorization?.replace("Bearer ", "");
 
             // check if access token exists
             if (!accessToken) {
