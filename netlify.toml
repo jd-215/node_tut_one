@@ -6,8 +6,8 @@
   from = "/api/*"
   status = 200
   to = "/.netlify/functions/api/:splat"
-
-  [[redirects]]
+[[redirects]]
+  force =  true
   from = "/*"
   to = "/public/index.html"
   status = 200
